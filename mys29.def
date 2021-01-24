@@ -1,0 +1,44 @@
+#DefFormat 8
+
+cell_names { DC virus virus_in_DC DC_LN LN }
+
+molecule_type Cytokine1 {
+decay_rate 0.0011
+diffusion_rate 1
+}
+
+cell_type DC {
+radius 30
+speed 0.0416
+attribute virus_detect fixed 0 fixed 0
+attribute MR uniform 0 1 uniform 0 1
+sense virus_detect phag virus 50 MR 0.99
+action change virus_in_DC gte virus_detect 1
+}
+
+cell_type virus {
+radius 1
+speed 0.0416
+}
+
+cell_type virus_in_DC {
+radius 30
+speed 0.0832
+attribute LN_detect fixed 0 fixed 0
+action move_chem Cytokine1 1e-25 fixed 0.9
+sense LN_detect cognate LN 50
+action change DC_LN gte LN_detect 1
+}
+
+cell_type DC_LN {
+radius 30
+speed 0.0416
+}
+
+cell_type LN {
+radius 50
+speed 0
+action secrete_fixed Cytokine1 10000 always
+}
+
+

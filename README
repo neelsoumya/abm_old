@@ -1,0 +1,21 @@
+CyCells is written in C++.  It has only been tested under linux.
+
+User manual is in user.pdf.
+
+Be aware that both the simulator and the documentation are works in
+progress.  Development of the simulator is proceeding in parallel with 
+development of models of specific biologic systems of interest to me, and
+the functionality provided reflects capabilities that I have found useful.
+My primary interest has been in making it easy (for me) to accomodate multiple
+models with the same simulator, and to add code for new model components as 
+necessary.  Ease of use by others and efficiency have not been top priorities 
+so far; there is a great deal that could be done in these areas.  
+In particular, there are a lot of ways in which the code will let you hang
+yourself; it is up to you to make sure your time step size is appropriate,
+that a calculated value is appropriate to use as a probability, etc.
+However, I am willing to help resolve problems you encounter, and interested 
+in suggestions you may have.
+
+Christy Warrender, christy@cs.unm.edu
+
+
