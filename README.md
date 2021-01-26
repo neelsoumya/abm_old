@@ -8,9 +8,9 @@ CyCells was created by Christy Warrender and Drew Levin. Thanks go to them for t
 
 * Links:
 
- * https://sourceforge.net/projects/cycells/files/latest/download
+   * https://sourceforge.net/projects/cycells/files/latest/download
 
- * https://github.com/drewlevin/cycells
+   * https://github.com/drewlevin/cycells
 
 
 * Usage:
@@ -31,5 +31,5 @@ CyCells was created by Christy Warrender and Drew Levin. Thanks go to them for t
 
 * Figure and screenshot (courtesy Drew Levin)
 
-    * ![screenshot of immune system ABM](CyCells-Screen.jpg)
+    * ![screenshot of immune system ABM](CyCells-Screen.png)
    
