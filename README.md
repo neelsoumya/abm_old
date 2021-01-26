@@ -31,4 +31,5 @@ CyCells was created by Christy Warrender and Drew Levin. Thanks go to them for t
 
 * Figure and screenshot (courtesy Drew Levin)
 
+    * ![screenshot of immune system ABM](CyCells-Screen.jpg)
    
