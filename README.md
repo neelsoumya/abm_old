@@ -15,6 +15,8 @@ Usage:
 
   * ./CyCells -d mys29.def -i mys29.init -t 10000
   
+  * simulation produces a file (test.history) which has the data from the run
+  
   
 Paper:
 
