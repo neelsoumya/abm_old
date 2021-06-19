@@ -33,9 +33,10 @@ CyCells was created by Christy Warrender and Drew Levin. Thanks go to them for t
 
     * ![screenshot of immune system ABM](CyCells-Screen.png)
 
+
 * Definition and initialization files
 
-    * my29.def and my29.init
+    * mys29.def and mys29.init
 
 * Documentation
 
