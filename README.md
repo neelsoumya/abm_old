@@ -35,7 +35,7 @@ CyCells was created by Christy Warrender and Drew Levin. Thanks go to them for t
 
 * Definition and initialization files
 
-    * 
+    * my29.def and my29.init
 
 * Documentation
 
