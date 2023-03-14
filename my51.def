@@ -1,0 +1,261 @@
+#DefFormat 8
+
+cell_names { normal dcell dcell_active infected virus virus_opsonized macrophage macrophage_active nkcell_active thcell thcell_2 thcell_clone thcell_mature bcell bcell_2 bcell_clone bcell_mature tcell tcell_2 tcell_clone tcell_mature virus_dummy }
+
+molecule_type TNF {
+decay_rate 1e-4
+diffusion_rate 100
+}
+
+molecule_type IL2 {
+decay_rate 1e-4
+diffusion_rate 100
+}
+
+molecule_type IFNgamma {
+decay_rate 1e-4
+diffusion_rate 100
+}
+
+molecule_type IFNalphabeta {
+decay_rate 1e-4
+diffusion_rate 100
+}
+
+cell_type normal {
+radius 10
+speed 0.0018
+attribute infect_flag fixed 0 fixed 0
+attribute MHCPeptide fixed 245 fixed 245
+attribute time fixed 0 fixed 0
+sense infect_flag cognate virus 25
+action change infected composite gte infect_flag 1 fixed 0.01
+action divide normal fixed 0.0006
+action die fixed 0.0006
+}
+
+
+cell_type virus {
+radius 10
+speed 0.0018
+attribute MHCPeptide fixed 245 fixed 245
+attribute virus_replicate fixed 0 fixed 0
+attribute time fixed 0 fixed 0
+attribute opsonize fixed 0 fixed 0
+process time update fixed 1
+sense opsonize cognate bcell_2 25
+sense opsonize cognate bcell_clone 25
+sense opsonize cognate bcell_mature 25
+sense virus_replicate cognate normal 25
+sense virus_replicate cognate infected 25
+action change virus_opsonized composite gte opsonize 1 lte virus_replicate 1
+action change virus_dummy composite gte virus_replicate 1 lte opsonize 0
+}
+
+
+cell_type virus_dummy {
+radius 10
+speed 0.0018
+attribute MHCPeptide fixed 245 fixed 245
+attribute virus_replicate fixed 0 fixed 0
+attribute time fixed 0 fixed 0
+attribute opsonize fixed 0 fixed 0
+process time update fixed 1
+action divide virus fixed 0.0006
+}
+
+
+cell_type virus_opsonized {
+radius 10
+speed 0.0018
+attribute MHCPeptide fixed 245 fixed 245
+attribute time fixed 0 fixed 0
+attribute opsonize fixed 0 fixed 0
+}
+
+
+cell_type infected {
+radius 10
+speed 0.0018
+attribute MHCPeptide fixed 245 fixed 245
+attribute time fixed 0 fixed 0
+process time update fixed 1
+action divide infected fixed 0.0006
+action die fixed 0.0006
+action secrete_fixed IFNalphabeta 1189 always 
+}
+
+cell_type macrophage {
+radius 10
+speed 0.0018
+attribute MR uniform 0 1 uniform 0 1
+attribute IFNgamma_sense fixed 0 fixed 0
+attribute killnum fixed 0 fixed 0
+sense killnum phag virus_opsonized 25 MR 0.99
+action die gte killnum 1000
+sense IFNgamma_sense copy_conc IFNgamma 
+action divide macrophage_active gte IFNgamma_sense 1 
+action divide macrophage fixed 0.0006
+action die fixed 0.00006
+}
+
+cell_type macrophage_active {
+radius 10
+speed 0.0018
+attribute MR uniform 0 1 uniform 0 1
+attribute killnum fixed 0 fixed 0
+sense killnum phag virus_opsonized 25 MR 0.7
+action die gte killnum 20
+action secrete_fixed TNF 10 always 
+action divide macrophage_active fixed 0.0006
+action die fixed 0.00006
+}
+
+cell_type dcell {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute TNF_sense fixed 0 fixed 0
+sense TNF_sense copy_conc TNF
+action change dcell_active gte TNF_sense 1 
+}
+
+cell_type dcell_active {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+}
+
+cell_type nkcell_active {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+action secrete_fixed IFNgamma 6 always
+}
+
+cell_type thcell {
+radius 10
+attribute time fixed 0 fixed 0
+}
+
+cell_type thcell_2 {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+sense triggercloning cognate macrophage_active 25
+action divide thcell_clone gte triggercloning 1
+process time update fixed 1
+}
+
+cell_type thcell_clone {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+action divide thcell_clone gte time 5
+action change thcell_mature fixed 0.1
+action secrete_fixed IL2 6 always
+action secrete_fixed IFNgamma 6 always
+process time update fixed 1
+}
+
+cell_type thcell_mature {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+action divide thcell_mature fixed 0.0006
+action die fixed 0.00006
+process time update fixed 1
+}
+
+cell_type bcell {
+radius 10
+attribute time fixed 0 fixed 0
+process time update fixed 1
+}
+
+cell_type bcell_2 {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+sense triggercloning cognate virus 25
+action divide bcell_clone gte triggercloning 1
+process time update fixed 1
+}
+
+
+cell_type bcell_clone {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+process time update fixed 1
+action divide bcell_clone fixed 0.0006
+action change bcell_mature fixed 0.1
+}
+
+
+cell_type bcell_mature {
+radius 10
+speed 0.0018
+attribute time fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+process time update fixed 1
+action divide bcell_mature fixed 0.0006
+action die fixed 0.00006
+}
+
+
+cell_type tcell {
+radius 10
+attribute TCR fixed 234 fixed 234
+attribute time fixed 0 fixed 0
+process time update fixed 1
+}
+
+
+cell_type tcell_2 {
+radius 10
+speed 0.0018
+attribute TCR uniform 0 1 uniform 0 1
+attribute time fixed 0 fixed 0
+attribute killnum fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+sense triggercloning cognate infected 25
+action divide tcell_clone gte triggercloning 1
+process time update fixed 1
+sense killnum phag infected 25 TCR 0.7
+action move_chem IFNalphabeta 1e-15 fixed 0.9
+}
+
+cell_type tcell_clone {
+radius 10
+speed 0.0018
+attribute TCR uniform 0 1 uniform 0 1
+attribute time fixed 0 fixed 0
+attribute killnum fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+process time update fixed 1
+sense killnum phag infected 25 TCR 0.7
+action divide tcell_clone gte time 5
+action change tcell_mature fixed 0.3
+action move_chem IFNalphabeta 1e-15 fixed 0.9
+}
+
+
+cell_type tcell_mature {
+radius 10
+speed 0.0018
+attribute TCR uniform 0 1 uniform 0 1
+attribute time fixed 0 fixed 0
+attribute killnum fixed 0 fixed 0
+attribute triggercloning fixed 0 fixed 0
+process time update fixed 1
+sense killnum phag infected 25 TCR 0.7
+action divide tcell_mature fixed 0.0006
+action die fixed 0.00006
+action move_chem IFNalphabeta 1e-15 fixed 0.9
+}

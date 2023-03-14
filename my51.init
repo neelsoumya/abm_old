@@ -1,0 +1,20 @@
+#InitFormat 4
+
+geometry
+400x400x400 microns; mol_res: 50 cell_res: 25 
+
+molecule_uniform: TNF 6E-15 0
+
+cell_count: virus 320
+cell_count: virus_opsonized 0
+cell_count: macrophage 256
+cell_count: nkcell_active 64
+cell_count: thcell 64
+cell_count: thcell_2 64
+cell_count: tcell 192
+cell_count: normal 3840
+cell_count: infected 256 
+cell_count: tcell_2 640
+cell_count: tcell_clone 0
+cell_count: tcell_mature 0
+cell_count: bcell_2 320
